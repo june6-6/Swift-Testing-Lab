@@ -13,4 +13,10 @@ struct Scoreboard {
         Player(name: "Andre", score: 0),
         Player(name: "Jasmine", score: 0),
     ]
+    
+    var state = GameState.setup
+    
+    mutating func resetScores(to newValue: Int) {
+        // 일부러 비워둠 - 테스트 먼저 작성
+    }
 }
