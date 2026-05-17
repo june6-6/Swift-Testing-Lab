@@ -18,5 +18,8 @@ struct Scoreboard {
     
     mutating func resetScores(to newValue: Int) {
         // 일부러 비워둠 - 테스트 먼저 작성
+        for index in 0..<players.count {
+            players[index].score = newValue
+        }
     }
 }
