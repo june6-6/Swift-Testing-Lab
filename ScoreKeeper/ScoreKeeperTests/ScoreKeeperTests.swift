@@ -30,6 +30,9 @@ import Testing
 //    }
 //}
 
+import Testing
+@testable import ScoreKeeper
+
 struct ScoreKeeperTests {
 
     @Test("Reset scores", arguments: [0, 5, 10])
@@ -40,11 +43,39 @@ struct ScoreKeeperTests {
             Player(name: "Andre", score: 5),
             Player(name: "Jasmine", score: 8),
         ]
-
         scoreboard.resetScores(to: startingPoints)
-
         for player in scoreboard.players {
             #expect(player.score == startingPoints)
         }
+    }
+
+    @Test("Highest score wins")
+    func highestScoreWins() {
+        var scoreboard = Scoreboard()
+        scoreboard.players = [
+            Player(name: "Elisha", score: 10),
+            Player(name: "Andre", score: 5),
+        ]
+        scoreboard.state = .gameOver
+        scoreboard.doesHighestScoreWin = true
+
+        let winners = scoreboard.winners
+
+        #expect(winners == [Player(name: "Elisha", score: 10)])
+    }
+    
+    @Test("Lowest score wins")
+    func lowestScoreWins() {
+        var scoreboard = Scoreboard()
+        scoreboard.players = [
+            Player(name: "Elisha", score: 10),
+            Player(name: "Andre", score: 5),
+        ]
+        scoreboard.state = .gameOver
+        scoreboard.doesHighestScoreWin = false
+
+        let winners = scoreboard.winners
+
+        #expect(winners == [Player(name: "Andre", score: 5)])
     }
 }
